@@ -82,7 +82,7 @@ h_pois_prior_function <- function(){
 }
 
 ##############################################################
-y_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + offset(log(Durationsec)) + (1 + Visit |gr(Participant, by=ASD)),
+y_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + (1 + Visit |gr(Participant, by=ASD)),
                   hu ~ 0 + ASD + ASD:Visit + ( 1 + Visit |gr(Participant, by=ASD)),
                   family = hurdle_poisson())
 ###
@@ -93,7 +93,7 @@ y_p_count_priors <- h_pois_prior_function()
 
 
 pause_count_model_test <- brm(
-  data = trainData,
+  data = training_set,
   formula = y_pausecount,
   prior = y_p_count_priors,
   family = hurdle_poisson(),
