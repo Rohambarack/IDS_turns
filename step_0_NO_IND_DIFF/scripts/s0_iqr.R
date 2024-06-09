@@ -88,7 +88,7 @@ y_iqr_f0 <- bf(iqr_f0 ~ 0 + ASD + ASD:Visit + (1 + Visit |gr(Participant, by=ASD
 y_iqr_f0_priors <- log_prior_function()
 
 iqr_model <- brm(
-  data = trainData,
+  data = training_set,
   formula = y_iqr_f0,
   prior = y_iqr_f0_priors,
   family = lognormal(),
