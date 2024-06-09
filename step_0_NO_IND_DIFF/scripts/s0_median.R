@@ -81,7 +81,7 @@ log_prior_function <- function(){
 #######################################################
 
 
-y_median_f0 <- bf(median_f0 ~ 0 + ASD + ASD:Visit + (1 + Visit + |gr(Participant, by=ASD)),
+y_median_f0 <- bf(median_f0 ~ 0 + ASD + ASD:Visit + (1 + Visit |gr(Participant, by=ASD)),
                   sigma ~ 0 + ASD + ASD:Visit + ( 1 |gr(Participant, by=ASD)),
                   family = lognormal())
 
