@@ -143,9 +143,6 @@ save_it(pp_3,"../plots/ar/step_0_PP_ar_sigma.pdf")
 #betas for mu
 vis_b_int <- take_apart_4_vis(med_vis$b_ASD0,med_vis$b_ASD1)
 vis_b_visit <- take_apart_4_vis(med_vis$`b_ASD0:Visit`,med_vis$`b_ASD1:Visit`)
-vis_b_soc <- take_apart_4_vis(med_vis$`b_ASD0:Socialization`,med_vis$`b_ASD1:Socialization`)
-vis_b_mot <- take_apart_4_vis(med_vis$`b_ASD0:MotorSkills`,med_vis$`b_ASD1:MotorSkills`)
-vis_b_lan <- take_apart_4_vis(med_vis$`b_ASD0:CHI_MLU`,med_vis$`b_ASD1:CHI_MLU`)
 
 vis_1 <- grid.arrange(
   vis_b_int %>%
@@ -157,37 +154,17 @@ vis_1 <- grid.arrange(
     geom_density(alpha = .4) +
     geom_vline(xintercept = 0)+
     theme_classic(),
-  vis_b_soc %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
-  vis_b_mot %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
-  vis_b_lan %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
+  
   top = textGrob("Population-level Effects, Articulation Rate mu",gp=gpar(fontsize=15,font=3))
 )
 
-save_it(vis_1,"../plots/ar/step_2_ar_mu.pdf")
+save_it(vis_1,"../plots/ar/step_0_ar_mu.pdf")
 
 ############ betas for group level
 vis_bg_int <- take_apart_4_vis(med_vis$`sd_Participant__Intercept:ASD0`,
                                med_vis$`sd_Participant__Intercept:ASD1`)
 vis_bg_visit <- take_apart_4_vis(med_vis$`sd_Participant__Visit:ASD0`,
                                  med_vis$`sd_Participant__Visit:ASD1`)
-vis_bg_soc <- take_apart_4_vis(med_vis$`sd_Participant__Socialization:ASD0`,
-                               med_vis$`sd_Participant__Socialization:ASD1`)
-vis_bg_mot <- take_apart_4_vis(med_vis$`sd_Participant__MotorSkills:ASD0`,
-                               med_vis$`sd_Participant__MotorSkills:ASD1`)
-vis_bg_lan <- take_apart_4_vis(med_vis$`sd_Participant__CHI_MLU:ASD0`,
-                               med_vis$`sd_Participant__CHI_MLU:ASD1`)
 
 vis_2 <- grid.arrange(
   vis_bg_int %>%
@@ -199,25 +176,11 @@ vis_2 <- grid.arrange(
     geom_density(alpha = .4) +
     geom_vline(xintercept = 0)+
     theme_classic(),
-  vis_bg_soc %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
-  vis_bg_mot %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
-  vis_bg_lan %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
+  
   top = textGrob("Group-level Effects, Articulation Rate Mu",gp=gpar(fontsize=15,font=3))
 )
 
-save_it(vis_2,"../plots/ar/step_2_ar_mu_sd.pdf")
+save_it(vis_2,"../plots/ar/step_0_ar_mu_sd.pdf")
 
 ############ betas for sigma
 vis_s_int <- take_apart_4_vis(med_vis$b_sigma_ASD0,
@@ -226,12 +189,7 @@ vis_s_int <- take_apart_4_vis(med_vis$b_sigma_ASD0,
 
 vis_s_visit <- take_apart_4_vis(med_vis$`b_sigma_ASD0:Visit`,
                                 med_vis$`b_sigma_ASD1:Visit`)
-vis_s_soc <- take_apart_4_vis(med_vis$`b_sigma_ASD0:Socialization`,
-                              med_vis$`b_sigma_ASD1:Socialization`)
-vis_s_mot <- take_apart_4_vis(med_vis$`b_sigma_ASD0:MotorSkills`,
-                              med_vis$`b_sigma_ASD1:MotorSkills`)
-vis_s_lan <- take_apart_4_vis(med_vis$`b_sigma_ASD0:CHI_MLU`,
-                              med_vis$`b_sigma_ASD1:CHI_MLU`)
+
 
 vis_3 <- grid.arrange(
   vis_s_int %>%
@@ -243,22 +201,8 @@ vis_3 <- grid.arrange(
     geom_density(alpha = .4) +
     geom_vline(xintercept = 0)+
     theme_classic(),
-  vis_s_soc %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
-  vis_s_mot %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
-  vis_s_lan %>%
-    ggplot(aes(x=b, fill = gr))+
-    geom_density(alpha = .4) +
-    geom_vline(xintercept = 0)+
-    theme_classic(),
+  
   top = textGrob("Population-level effects, Articulation Rate Sigma (log)",gp=gpar(fontsize=15,font=3))
 )
 
-save_it(vis_3,"../plots/ar/step_2_ar_sigma.pdf")
+save_it(vis_3,"../plots/ar/step_0_ar_sigma.pdf")

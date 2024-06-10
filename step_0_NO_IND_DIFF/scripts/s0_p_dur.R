@@ -3,7 +3,7 @@ set.seed(1)
 library(tidyverse)
 library(brms)
 library(caret)
-data <- read_csv("../../data/clean_data_mlu_correct.csv")
+data <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")
 
 
 ##### remove children, its only IDS 
@@ -90,9 +90,9 @@ h_gamma_prior_function <- function(){
   
 }
 ##################################################################
-y_paused_dur<- bf( PauseDuration ~ 0 + ASD + ASD:Visit + (1 + Visit  |gr(Participant, by=ASD)),
+y_paused_dur<- bf( PauseDuration ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + (1 + Visit  |gr(Participant, by=ASD)),
                    shape ~ 0 + ASD + ( 1  |gr(Participant, by=ASD)),
-                   hu ~ 0 + ASD + ASD:Visit + ( 1 + Visit |gr(Participant, by=ASD)),
+                   hu ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + ( 1 + Visit |gr(Participant, by=ASD)),
                    family = hurdle_gamma())
 ###
 
@@ -102,7 +102,7 @@ y_p_dur_priors <- h_gamma_prior_function()
 
 
 pause_dur_model <- brm(
-  data = trainData,
+  data = training_set,
   formula = y_paused_dur,
   prior = y_p_dur_priors,
   family = hurdle_gamma(),
