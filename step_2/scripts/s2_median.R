@@ -2,7 +2,8 @@
 library(tidyverse)
 library(brms)
 #setwd(".")
-data <- read_csv("../data/clean_data_mlu_correct.csv")
+set.seed(1)
+data <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")
 
 
 ##### remove children, its only IDS 

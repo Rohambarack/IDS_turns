@@ -1,10 +1,10 @@
-set.seed(1)
+
 ######### modelling IDS
 library(tidyverse)
 library(brms)
 library(caret)
-data <- read_csv("../data/clean_data_mlu_correct.csv")
-
+set.seed(1)
+data <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")
 
 ##### remove children, its only IDS 
 data <- data %>% 
@@ -95,9 +95,25 @@ h_gamma_prior_function <- function(){
     ##mean ASD
     prior(uniform(0,1),class = b, coef = ASD0, dpar = "hu"),
     prior(uniform(0,1),class = b, coef = ASD1, dpar = "hu"),
-    ### participant level 
+    ###mean Individual skills
+    prior(normal(0,.33),class = b, coef = "ASD0:CHI_MLU", dpar = "hu"),
+    prior(normal(0,.33),class = b, coef = "ASD0:MotorSkills", dpar = "hu"),
+    prior(normal(0,.33),class = b, coef = "ASD0:Socialization", dpar = "hu"),
+    prior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU", dpar = "hu"),
+    prior(normal(0,.33),class = b, coef = "ASD1:MotorSkills", dpar = "hu"),
+    prior(normal(0,.33),class = b, coef = "ASD1:Socialization", dpar = "hu"),
+    ##mean Visit
+    prior(normal(0,.33),class = b, coef = "ASD0:Visit", dpar = "hu"),
+    prior(normal(0,.33),class = b, coef = "ASD1:Visit", dpar = "hu"),
+    ##### participant level
     ## mean
-    prior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "hu")
+    prior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "hu"),
+    ###mean Individual skills
+    prior(normal(0,.33),class = sd, coef = "CHI_MLU", group = Participant, dpar = "hu"),
+    prior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant, dpar = "hu"),
+    prior(normal(0,.33),class = sd, coef = "Socialization", group = Participant, dpar = "hu"),
+    ##mean Visit
+    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant, dpar = "hu")
     
   )
   
@@ -105,9 +121,9 @@ h_gamma_prior_function <- function(){
   
 }
 ##################################################################
-y_paused_dur<- bf( PauseDuration ~ 0 + ASD + ASD:Visit +  ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + (1 + Visit + Socialization + MotorSkills + CHI_MLU |gr(Participant, by=ASD)),
+y_paused_dur<- bf( PauseDuration ~ 0 + ASD + ASD:Visit +  ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + offset(log(DurationSec)) + (1 + Visit + Socialization + MotorSkills + CHI_MLU |gr(Participant, by=ASD)),
                    shape ~ 0 + ASD + ( 1  |gr(Participant, by=ASD)),
-                   hu ~ 0 + ASD + ( 1 |gr(Participant, by=ASD)),
+                   hu ~ 0 + ASD + ASD:Visit +  ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + offset(log(DurationSec)) + (1 + Visit + Socialization + MotorSkills + CHI_MLU |gr(Participant, by=ASD)),
                    family = hurdle_gamma())
 ###
 
@@ -133,6 +149,6 @@ pp_check(pause_dur_model,ndraws=100)
 
 summary(pause_dur_model)
 
-saveRDS(pause_dur_model,"../models/step_2_PauseDuration_2_conv.rds")
+saveRDS(pause_dur_model,"../models/step_2_PauseDuration_offset.rds")
 
 

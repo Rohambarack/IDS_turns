@@ -3,7 +3,7 @@ library(tidyverse)
 library(brms)
 #setwd(".")
 set.seed(1)
-data <- read_csv("../data/clean_data_mlu_correct.csv")
+data <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")
 
 
 ##### remove children, its only IDS 
@@ -97,7 +97,13 @@ h_pois_prior_function <- function(){
     prior(normal(0,.33),class = b, coef = "ASD1:Visit", dpar = "hu"),
     ### participant level 
     ## mean
-    prior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "hu")
+    prior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "hu"),
+    ###mean Individual skills
+    prior(normal(0,.33),class = sd, coef = "CHI_MLU", group = Participant, dpar = "hu"),
+    prior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant,  dpar = "hu"),
+    prior(normal(0,.33),class = sd, coef = "Socialization", group = Participant,  dpar = "hu"),
+    ##mean Visit
+    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant,  dpar = "hu"),
     
   )
   
@@ -106,8 +112,8 @@ h_pois_prior_function <- function(){
 }
 
 ##############################################################
-y_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit +  ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + (1 + Visit + Socialization + MotorSkills + CHI_MLU |gr(Participant, by=ASD)),
-                  hu ~ 0 + ASD + ASD:Visit + ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + ( 1 |gr(Participant, by=ASD)),
+y_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + offset(log(DurationSec)) + (1 + Visit + Socialization + MotorSkills + CHI_MLU |gr(Participant, by=ASD)),
+                  hu ~ 0 + ASD + ASD:Visit + ASD:Socialization + ASD:MotorSkills + ASD:CHI_MLU + offset(log(DurationSec)) + ( 1 + Visit + Socialization + MotorSkills + CHI_MLU|gr(Participant, by=ASD)),
                   family = hurdle_poisson())
 ###
 
@@ -133,4 +139,4 @@ pause_count_model_test <- brm(
 
 summary(pause_count_model_test)
 
-saveRDS(pause_count_model_test,"../models/step_2_PauseCount_4_hurdle.rds")
+saveRDS(pause_count_model_test,"../models/step_2_PauseCount_offset_hurdle.rds")
