@@ -98,7 +98,7 @@ ar_priors <- log_prior_function()
 
 
 ar_model <- brm(
-  data = training_set,
+  data = data,
   formula = y_ar,
   prior = ar_priors,
   family = lognormal(),

@@ -102,7 +102,7 @@ y_p_dur_priors <- h_gamma_prior_function()
 
 
 pause_dur_model <- brm(
-  data = training_set,
+  data = data,
   formula = y_paused_dur,
   prior = y_p_dur_priors,
   family = hurdle_gamma(),

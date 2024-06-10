@@ -2,7 +2,6 @@
 ######### modelling IDS
 library(tidyverse)
 library(brms)
-library(caret)
 set.seed(1)
 data <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")
 
@@ -47,15 +46,12 @@ test_set <- data %>%
   filter(Participant %in% asd_test | Participant %in% non_asd_test)
 
 ####standardize non categorical predictors
+library(caret)
 
-
-normParam <- preProcess(training_set[,c("Socialization",
-                                        "MotorSkills",
-                                        "CHI_MLU")])
-norm.testData <- predict(normParam, test_set)
-norm.trainData <- predict(normParam, training_set)
-
-
+normParam <- preProcess(data[,c("Socialization",
+                                "MotorSkills",
+                                "CHI_MLU")])
+normData <- predict(normParam, data)
 ################################################### 
 h_gamma_prior_function <- function(){
   
@@ -133,7 +129,7 @@ y_p_dur_priors <- h_gamma_prior_function()
 
 
 pause_dur_model <- brm(
-  data = norm.trainData,
+  data = normData,
   formula = y_paused_dur,
   prior = y_p_dur_priors,
   family = hurdle_gamma(),

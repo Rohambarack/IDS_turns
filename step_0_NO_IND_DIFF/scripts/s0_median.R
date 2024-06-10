@@ -89,7 +89,7 @@ y_median_f0 <- bf(median_f0 ~ 0 + ASD + ASD:Visit + (1 + Visit |gr(Participant, 
 y_median_f0_priors <- log_prior_function()
 
 median_model <- brm(
-  data = training_set,
+  data = data,
   formula = y_median_f0,
   prior = y_median_f0_priors,
   family = lognormal(),

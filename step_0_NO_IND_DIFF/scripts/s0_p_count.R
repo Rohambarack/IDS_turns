@@ -93,7 +93,7 @@ y_p_count_priors <- h_pois_prior_function()
 
 
 pause_count_model_test <- brm(
-  data = training_set,
+  data = data,
   formula = y_pausecount,
   prior = y_p_count_priors,
   family = hurdle_poisson(),

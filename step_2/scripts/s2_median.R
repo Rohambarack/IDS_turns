@@ -49,11 +49,10 @@ test_set <- data %>%
 ####standardize non categorical predictors
 library(caret)
 
-normParam <- preProcess(training_set[,c("Socialization",
-                                        "MotorSkills",
-                                        "CHI_MLU")])
-norm.testData <- predict(normParam, test_set)
-norm.trainData <- predict(normParam, training_set)
+normParam <- preProcess(data[,c("Socialization",
+                                "MotorSkills",
+                                "CHI_MLU")])
+normData <- predict(normParam, data)
 ##########################################################
 log_prior_function <- function(){
   
@@ -115,7 +114,7 @@ y_median_f0 <- bf(median_f0 ~ 0 + ASD + ASD:Visit +  ASD:Socialization + ASD:Mot
 y_median_f0_priors <- log_prior_function()
 
 median_model <- brm(
-  data = norm.trainData,
+  data =normData,
   formula = y_median_f0,
   prior = y_median_f0_priors,
   family = lognormal(),

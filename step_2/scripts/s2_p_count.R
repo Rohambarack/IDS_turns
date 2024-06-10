@@ -49,11 +49,10 @@ test_set <- data %>%
 ####standardize non categorical predictors
 library(caret)
 
-normParam <- preProcess(training_set[,c("Socialization",
-                                        "MotorSkills",
-                                        "CHI_MLU")])
-norm.testData <- predict(normParam, test_set)
-norm.trainData <- predict(normParam, training_set)
+normParam <- preProcess(data[,c("Socialization",
+                                "MotorSkills",
+                                "CHI_MLU")])
+normData <- predict(normParam, data)
 ##########################################################
 h_pois_prior_function <- function(){
   
@@ -123,7 +122,7 @@ y_p_count_priors <- h_pois_prior_function()
 
 
 pause_count_model_test <- brm(
-  data = norm.trainData,
+  data = normData,
   formula = y_pausecount,
   prior = y_p_count_priors,
   family = hurdle_poisson(),

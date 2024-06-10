@@ -49,11 +49,10 @@ test_set <- data %>%
 ####standardize non categorical predictors
 library(caret)
 
-normParam <- preProcess(training_set[,c("Socialization",
+normParam <- preProcess(data[,c("Socialization",
                                         "MotorSkills",
                                         "CHI_MLU")])
-norm.testData <- predict(normParam, test_set)
-norm.trainData <- predict(normParam, training_set)
+normData <- predict(normParam, data)
 ##########################################################
 log_prior_function <- function(){
   
@@ -121,7 +120,7 @@ ar_priors <- log_prior_function()
 
 
 ar_model <- brm(
-  data = norm.trainData,
+  data = normData,
   formula = y_ar,
   prior = ar_priors,
   family = lognormal(),
