@@ -1,0 +1,543 @@
+warning: in the working copy of 'step_0_NO_IND_DIFF/scripts/.Rhistory', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/step_0_NO_IND_DIFF/scripts/.Rhistory b/step_0_NO_IND_DIFF/scripts/.Rhistory[m
+[1mindex e69de29..2d33e82 100644[m
+[1m--- a/step_0_NO_IND_DIFF/scripts/.Rhistory[m
+[1m+++ b/step_0_NO_IND_DIFF/scripts/.Rhistory[m
+[36m@@ -0,0 +1,512 @@[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:MotorSkills"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Socialization"),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Visit"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Visit"),[m
+[32m+[m[32m##### participant level[m
+[32m+[m[32m## mean[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Intercept", group = Participant),[m
+[32m+[m[32m###mean Individual skills[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "CHI_MLU", group = Participant),[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant),[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Socialization", group = Participant),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Visit", group = Participant),[m
+[32m+[m[32m###### pop level sigma (logscale)[m
+[32m+[m[32m##mean ASD[m
+[32m+[m[32mprior(normal(-1,.33),class = b, coef = ASD0, dpar = "sigma"),[m
+[32m+[m[32mprior(normal(-1,.33),class = b, coef = ASD1, dpar = "sigma"),[m
+[32m+[m[32m###mean Individual skills[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:CHI_MLU", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:MotorSkills", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Socialization", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:MotorSkills", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Socialization", dpar = "sigma"),[m
+[32m+[m[32m##mean Visit ( end of log scale)[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Visit", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Visit", dpar = "sigma"),[m
+[32m+[m[32m### participant level[m
+[32m+[m[32m## mean[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "sigma")[m
+[32m+[m[32m)[m
+[32m+[m[32mreturn(log_priors)[m
+[32m+[m[32m}[m
+[32m+[m[32mar_priors <- log_prior_function()[m
+[32m+[m[32mar_priors[m
+[32m+[m[32mar_model <- brm([m
+[32m+[m[32mdata = norm.trainData,[m
+[32m+[m[32mformula = y_ar,[m
+[32m+[m[32mprior = ar_priors,[m
+[32m+[m[32mfamily = lognormal(),[m
+[32m+[m[32msample_prior = T,[m
+[32m+[m[32mwarmup = 500,[m
+[32m+[m[32miter = 1500,[m
+[32m+[m[32mcores = 8,[m
+[32m+[m[32mchains = 4,[m
+[32m+[m[32minit = 0,[m
+[32m+[m[32m)[m
+[32m+[m[32mpp_check(ar_model,ndraws=100)[m
+[32m+[m[32msummary(ar_model)[m
+[32m+[m[32msaveRDS(ar_model,"step_2_ar_2.rds")[m
+[32m+[m[32mar_priors[m
+[32m+[m[32mget_prior(y_ar, norm.trainData)[m
+[32m+[m[32mvis <- as_draws_df(ar_model)[m
+[32m+[m[32mvis %>% ggplot() +[m
+[32m+[m[32mgeom_density(aes( x = `prior_sigma_ASD:MotorSkills`), fill = "red", alpha = .3) +[m
+[32m+[m[32mgeom_density(aes( x = `b_sigma_ASD:MotorSkills`), fill = "green", alpha = .3)[m
+[32m+[m[32mvis %>% ggplot() +[m
+[32m+[m[32mgeom_density(aes( x = `prior_ASD:MotorSkills_sigma`), fill = "red", alpha = .3) +[m
+[32m+[m[32mgeom_density(aes( x = `b_sigma_ASD:MotorSkills`), fill = "green", alpha = .3)[m
+[32m+[m[32mvis %>% ggplot() +[m
+[32m+[m[32mgeom_density(aes( x = `r_ASD:MotorSkills_sigma`), fill = "red", alpha = .3) +[m
+[32m+[m[32mgeom_density(aes( x = `b_sigma_ASD:MotorSkills`), fill = "green", alpha = .3)[m
+[32m+[m[32mlog_prior_function <- function(){[m
+[32m+[m[32mlog_priors <- c([m
+[32m+[m[32m### population level[m
+[32m+[m[32m##mean ASD[m
+[32m+[m[32mprior(normal(6,1),class = b, coef = ASD0),[m
+[32m+[m[32mprior(normal(6,1),class = b, coef = ASD1),[m
+[32m+[m[32m###mean Individual skills[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:CHI_MLU"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:MotorSkills"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Socialization"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:MotorSkills"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Socialization"),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Visit"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Visit"),[m
+[32m+[m[32m##### participant level[m
+[32m+[m[32m## mean[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Intercept", group = Participant),[m
+[32m+[m[32m###mean Individual skills[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "CHI_MLU", group = Participant),[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant),[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Socialization", group = Participant),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Visit", group = Participant),[m
+[32m+[m[32m###### pop level sigma (logscale)[m
+[32m+[m[32m##mean ASD[m
+[32m+[m[32mprior(normal(0,1),class = b, coef = ASD0, dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,1),class = b, coef = ASD1, dpar = "sigma"),[m
+[32m+[m[32m###mean Individual skills[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:CHI_MLU", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:MotorSkills", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Socialization", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:MotorSkills", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Socialization", dpar = "sigma"),[m
+[32m+[m[32m##mean Visit ( end of log scale)[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Visit", dpar = "sigma"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Visit", dpar = "sigma"),[m
+[32m+[m[32m### participant level[m
+[32m+[m[32m## mean[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "sigma")[m
+[32m+[m[32m)[m
+[32m+[m[32mreturn(log_priors)[m
+[32m+[m[32m}[m
+[32m+[m[32mmedian_priors_again <- log_prior_function()[m
+[32m+[m[32mmedian_priors_again[m
+[32m+[m[32mget_prior(median_priors_again,y_median_f0)[m
+[32m+[m[32mget_prior(y_median_f0, norm.trainData)[m
+[32m+[m[32mmedian_model_again <- brm([m
+[32m+[m[32mdata = norm.trainData,[m
+[32m+[m[32mformula = y_median_f0,[m
+[32m+[m[32mprior = y_median_priors_again,[m
+[32m+[m[32mfamily = lognormal(),[m
+[32m+[m[32msample_prior = T,[m
+[32m+[m[32mwarmup = 500,[m
+[32m+[m[32miter = 1500,[m
+[32m+[m[32mcores = 8,[m
+[32m+[m[32mchains = 4,[m
+[32m+[m[32minit = 0,[m
+[32m+[m[32m)[m
+[32m+[m[32mmedian_model_again <- brm([m
+[32m+[m[32mdata = norm.trainData,[m
+[32m+[m[32mformula = y_median_f0,[m
+[32m+[m[32mprior = median_priors_again,[m
+[32m+[m[32mfamily = lognormal(),[m
+[32m+[m[32msample_prior = T,[m
+[32m+[m[32mwarmup = 500,[m
+[32m+[m[32miter = 1500,[m
+[32m+[m[32mcores = 8,[m
+[32m+[m[32mchains = 4,[m
+[32m+[m[32minit = 0,[m
+[32m+[m[32m)[m
+[32m+[m[32m####################################################################################[m
+[32m+[m[32mlibrary(brms)[m
+[32m+[m[32mlibrary(tidyverse)[m
+[32m+[m[32md <- read_csv("../data/clean_data_mlu_correct.csv")[m
+[32m+[m[32md <- read_csv("./data/clean_data_mlu_correct.csv")[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = ArticulationRate))+[m
+[32m+[m[32mgeom_density()[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4, sdlog = 2), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4, sdlog = .5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 6, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 5, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 5.2, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mm <- readRDS("step_2_iqr_f0_2.rds")[m
+[32m+[m[32msummary(m)[m
+[32m+[m[32mexp(06)[m
+[32m+[m[32mexp(0.6)[m
+[32m+[m[32mexp(0.13)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 3.9, sdlog = 1.8), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 3.9, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 3.9, sdlog = 2), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4, sdlog = 1.4), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4, sdlog = 0.5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.4, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.5, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.5, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()[m
+[32m+[m[32m)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape = 3,rate =3))[m
+[32m+[m[32mcurve(dgamma(x,shape = 2,rate =3),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 2,rate =7),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 7,rate =7),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 100,rate =7),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 1,rate =7),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 3,rate =70),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 3,rate =100),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 3,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 3,rate =.01),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 3,rate =.05),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 2,rate =.05),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape = 2,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape =.1,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape =4,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape =1,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.5,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape =2,rate =.1),from = -1, to = 200)[m
+[32m+[m[32mcurve(dgamma(x,shape =2,rate =.1),from = -1, to = 50)[m
+[32m+[m[32mcurve(dgamma(x,shape =1,rate =.1),from = -1, to = 50)[m
+[32m+[m[32mcurve(dgamma(x,shape =1,rate =0),from = -1, to = 50)[m
+[32m+[m[32mcurve(dgamma(x,shape =1,rate =0.001),from = -1, to = 50)[m
+[32m+[m[32mcurve(dgamma(x,shape =1,rate =0.001),from = -1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1,rate =0.01),from = -1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =2,rate =0.01),from = -1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.01),from = -1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.01),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.3), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.01),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.2), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.8), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.01),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.05),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.03),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.5), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.02),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 2), from =-1, to = 600)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 2), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.02),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.8), from =-1, to = 600)[m
+[32m+[m[32mcurve(dgamma(x,shape =1.2,rate =0.02),from = -1, to = 600, col= "red", add = T)[m
+[32m+[m[32mvis_help <- tibble(d = rgamma(1000,shape = 1.2,rate = 0.02))[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$d), color = "red")[m
+[32m+[m[32mvis_help <- tibble(d = rgamma(79045,shape = 1.2,rate = 0.02))[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$d), color = "red")[m
+[32m+[m[32mvis_help <- tibble(g = rgamma(79045,shape = 1.2,rate = 0.02),[m
+[32m+[m[32ml = rlnorm(79045, meanlog = 4.7, sdlog = 1.8))[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red") +[m
+[32m+[m[32mgeom_density(aes(x =vis_help$l), color = "green") +[m
+[32m+[m[32mcurve(dlnorm(x,meanlog = 4.7, sdlog = 1.8), from =-1, to = 600)[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red") +[m
+[32m+[m[32mgeom_density(aes(x =vis_help$l), color = "green")[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red") +[m
+[32m+[m[32mgeom_density(aes(x =vis_help$l), color = "green")[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red")[m
+[32m+[m[32mvis_help <- tibble(g = rgamma(79045,shape = 1.2,rate = 0.025),[m
+[32m+[m[32mvis_help <- tibble(g = rgamma(79045,shape = 1.2,rate = 0.025),[m
+[32m+[m[32ml = rlnorm(79045, meanlog = 4.7, sdlog = 1.8))[m
+[32m+[m[32md %>%[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red")[m
+[32m+[m[32mvis_help <- tibble(g = rgamma(79045,shape = 1.2,rate = 0.016),[m
+[32m+[m[32ml = rlnorm(79045, meanlog = 4.7, sdlog = 1.8))[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red")[m
+[32m+[m[32mvis_help <- tibble(g = rgamma(79045,shape = 1.2,rate = 0.018),[m
+[32m+[m[32ml = rlnorm(79045, meanlog = 4.7, sdlog = 1.8))[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red")[m
+[32m+[m[32mvis_help <- tibble(g = rgamma(79045,shape = 1.2,rate = 0.017),[m
+[32m+[m[32ml = rlnorm(79045, meanlog = 4.7, sdlog = 1.8))[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red")[m
+[32m+[m[32mlog(0.017)[m
+[32m+[m[32mlog(0.02)[m
+[32m+[m[32m############################[m
+[32m+[m[32mpp_check(m,ndraws = 100)[m
+[32m+[m[32md %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent") %>%[m
+[32m+[m[32mggplot(aes(x = iqr_f0))+[m
+[32m+[m[32mgeom_density()+[m
+[32m+[m[32mgeom_density(aes(x =vis_help$g), color = "red")[m
+[32m+[m[32m#libraries:[m
+[32m+[m[32mlibrary(tidyverse)[m
+[32m+[m[32mdf_art <- read_csv("TurnTakingData_articulation.csv")[m
+[32m+[m[32mdf_art <- read_csv("C:/Users/balld/Desktop/munka/TurnTakingData_articulation.csv")[m
+[32m+[m[32mdf_f0 <- read_csv("C:/Users/balld/Desktop/munka/TurnTakingData_f0.csv")[m
+[32m+[m[32m##### clean data ##############################[m
+[32m+[m[32m### Check the two dataframes[m
+[32m+[m[32mall.equal(df_art[,1:56],df_f0[,1:56])[m
+[32m+[m[32mdf_57 <- df_art[,57:60][m
+[32m+[m[32mdf_full <- cbind(df_f0,df_57)[m
+[32m+[m[32mdf_full$Duration[m
+[32m+[m[32mmax(df_full$Duration)[m
+[32m+[m[32mmin(df_full$Duration)[m
+[32m+[m[32mdf_full %>%[m
+[32m+[m[32mggplot(aes(x = Duration)) +[m
+[32m+[m[32mgeom_density()[m
+[32m+[m[32mdf_full %>%[m
+[32m+[m[32mggplot(aes(x = DurationSec)) +[m
+[32m+[m[32mgeom_density()[m
+[32m+[m[32mdur <- df_full$Duration[m
+[32m+[m[32mdur <- na.omit(dur)[m
+[32m+[m[32mmax(dur)[m
+[32m+[m[32mView(df_f0)[m
+[32m+[m[32mView(df_full)[m
+[32m+[m[32m7 /1000[m
+[32m+[m[32m##### needed columns[m
+[32m+[m[32mdf_c_1 <- df_full %>%[m
+[32m+[m[32mselect(Participant,[m
+[32m+[m[32mVisit,[m
+[32m+[m[32mASD,[m
+[32m+[m[32mInterlocutor,[m
+[32m+[m[32mmedian_f0,[m
+[32m+[m[32miqr_f0,[m
+[32m+[m[32mArticulationRate,[m
+[32m+[m[32mPauseCount,[m
+[32m+[m[32mPauseDuration,[m
+[32m+[m[32mDurationSec,[m
+[32m+[m[32mSocialization,[m
+[32m+[m[32mMotorSkills )[m
+[32m+[m[32mmlu <- read_delim(delim = ";","C:/Users/balld/Desktop/munka/MLUv2.csv")[m
+[32m+[m[32mView(mlu)[m
+[32m+[m[32m#participant : regex to extract everything before first dot[m
+[32m+[m[32m#V extract everything between the two dots[m
+[32m+[m[32m#replace non digits with nothing[m
+[32m+[m[32mmlu_c_1 <- mlu %>%[m
+[32m+[m[32mmutate( Participant = str_extract(mlu$`File-name`, "^[^.]*+(?=\\.)"),[m
+[32m+[m[32mV =  str_extract(mlu$`File-name`,"(?<=\\.).*?(?=\\.)"),[m
+[32m+[m[32mVisit = as.integer(gsub("\\D","",V)))[m
+[32m+[m[32mView(mlu_c_1)[m
+[32m+[m[32mmlu_c_2 <- mlu_c_1 %>%[m
+[32m+[m[32mrename(CHI_MLU=`CHI-MLU`) %>%[m
+[32m+[m[32mselect(Participant, Visit, CHI_MLU)[m
+[32m+[m[32mView(mlu_c_2)[m
+[32m+[m[32mView(df_c_1)[m
+[32m+[m[32m#MLU and rest of the data mismatch[m
+[32m+[m[32m#interlocutor nas, also  happen with durint visits.... can't  simply remove all[m
+[32m+[m[32mn1 <- sort(unique(df_c_1$Participant))[m
+[32m+[m[32mn2 <- sort(unique(mlu_c_2$Participant))[m
+[32m+[m[32mall.equal(n1,n2)[m
+[32m+[m[32m#find participants from the data, which have no MLU[m
+[32m+[m[32m#most are NA filled and will be removed, except JG2[m
+[32m+[m[32mna_list <- df_c_1 %>%[m
+[32m+[m[32mfilter(!Participant %in% n2) %>%[m
+[32m+[m[32mselect(Participant) %>%[m
+[32m+[m[32munique()[m
+[32m+[m[32mView(na_list)[m
+[32m+[m[32mna_list <- na_list[c(1:5,7:length(na_list$Participant)),][m
+[32m+[m[32mdf_c_2 <- df_c_1 %>%[m
+[32m+[m[32mfilter(!Participant %in% na_list)[m
+[32m+[m[32mcount_turns <- function(df,id,vis){[m
+[32m+[m[32mdf_fin <- df %>%[m
+[32m+[m[32mfilter(Participant == id,[m
+[32m+[m[32mVisit == vis)[m
+[32m+[m[32m#count rows (turns) if visit is not missing[m
+[32m+[m[32mif (length(df_fin[,1])>1){[m
+[32m+[m[32mdf_fin$Turn <- seq(1:length(df_fin$Participant))[m
+[32m+[m[32m} else if (length(df_fin[,1])==1){[m
+[32m+[m[32m#if visit is notes as 1 line of NAs[m
+[32m+[m[32mdf_fin$Turn <- NA[m
+[32m+[m[32m} else {[m
+[32m+[m[32m#if visit is completely missing from df[m
+[32m+[m[32mdf_fin <- tibble( Participant = id,[m
+[32m+[m[32mVisit = vis,[m
+[32m+[m[32mTurn = NA)[m
+[32m+[m[32m}[m
+[32m+[m[32mreturn(df_fin)[m
+[32m+[m[32m}[m
+[32m+[m[32m#add turn numbering[m
+[32m+[m[32mfor (participant in unique(df_c_2$Participant)){[m
+[32m+[m[32mfor (visit in unique(df_c_2$Visit)){[m
+[32m+[m[32mif (participant == unique(df_c_2$Participant)[1] &[m
+[32m+[m[32mvisit ==  unique(df_c_2$Visit)[1]){[m
+[32m+[m[32m#separate by id and visit[m
+[32m+[m[32mdf_fin <- count_turns(df_c_2,participant,visit)[m
+[32m+[m[32m} else {[m
+[32m+[m[32m#separate by id and visit[m
+[32m+[m[32mdf_temp <- count_turns(df_c_2,participant,visit)[m
+[32m+[m[32mdf_fin<- plyr::rbind.fill(df_fin,df_temp)[m
+[32m+[m[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m}[m
+[32m+[m[32m#remove missing visits[m
+[32m+[m[32mdf_c_3 <- df_fin %>%[m
+[32m+[m[32mfilter(!is.na(Turn))[m
+[32m+[m[32mView(df_c_3)[m
+[32m+[m[32m################[m
+[32m+[m[32m# note original order before mergint ot keep turns[m
+[32m+[m[32mdf_c_4 <- df_c_3 %>%[m
+[32m+[m[32mmutate(ord = as.integer(rownames(.)))[m
+[32m+[m[32mView(df_c_4)[m
+[32m+[m[32mdf_mlu_merged <- merge(df_c_4,mlu_c_2, by = c("Participant","Visit"), all.x = T)[m
+[32m+[m[32mView(df_mlu_merged)[m
+[32m+[m[32m#reorder by original turns[m
+[32m+[m[32mdf_mlu_merged <- df_mlu_merged[order(df_mlu_merged$ord), ][m
+[32m+[m[32mView(df_mlu_merged)[m
+[32m+[m[32m#save[m
+[32m+[m[32mwrite_csv(df_mlu_merged,"clean_data_mlu_correct_adj_dur.csv")[m
+[32m+[m[32mdata <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")[m
+[32m+[m[32msetwd("C:/Users/balld/Desktop/munka/IDS_articulation/IDS_turns/step_0_NO_IND_DIFF/scripts")[m
+[32m+[m[32mdata <- read_csv("../../data/clean_data_mlu_correct_adj_dur.csv")[m
+[32m+[m[32m##### remove children, its only IDS[m
+[32m+[m[32mdata <- data %>%[m
+[32m+[m[32mfilter(Interlocutor == "Parent")[m
+[32m+[m[32m### NA 0s from iqr[m
+[32m+[m[32m## NA 0s from articulation rate[m
+[32m+[m[32mdata <- data %>%[m
+[32m+[m[32mmutate( iqr_f0 = ifelse(iqr_f0 == 0 | ArticulationRate == 0,[m
+[32m+[m[32mNA,iqr_f0),[m
+[32m+[m[32mmedian_f0 = ifelse(iqr_f0 == 0 | ArticulationRate == 0,[m
+[32m+[m[32mNA,median_f0),[m
+[32m+[m[32mArticulationRate= ifelse(iqr_f0 == 0 | ArticulationRate == 0,[m
+[32m+[m[32mNA,ArticulationRate),[m
+[32m+[m[32mPauseCount = ifelse(iqr_f0 == 0 | ArticulationRate == 0,[m
+[32m+[m[32mNA,PauseCount),[m
+[32m+[m[32mPauseDuration = ifelse(iqr_f0 == 0 | ArticulationRate == 0,[m
+[32m+[m[32mNA,PauseDuration)[m
+[32m+[m[32m)[m
+[32m+[m[32m#### asd to factor[m
+[32m+[m[32mdata <- data %>%[m
+[32m+[m[32mmutate(ASD = as.factor(ASD))[m
+[32m+[m[32masd_set <- unique((data %>%filter(ASD == 1))$Participant)[m
+[32m+[m[32m#asd_test <- sample(asd_set, 8)[m
+[32m+[m[32masd_test <- c("Annie","AS2","JG2","CD2","Eduardo","Charles","Johan","Luis")[m
+[32m+[m[32mnon_asd_set <-unique((data %>%filter(ASD == 0))$Participant)[m
+[32m+[m[32m#non_asd_test <- sample(non_asd_set, 6)[m
+[32m+[m[32mnon_asd_test <-  c("VC","JG","BC","SB","MM","AZ")[m
+[32m+[m[32mtraining_set <- data %>%[m
+[32m+[m[32mfilter(! Participant %in% asd_test) %>%[m
+[32m+[m[32mfilter(! Participant %in% non_asd_test)[m
+[32m+[m[32mtest_set <- data %>%[m
+[32m+[m[32mfilter(Participant %in% asd_test | Participant %in% non_asd_test)[m
+[32m+[m[32m##########################################################[m
+[32m+[m[32mh_pois_prior_function <- function(){[m
+[32m+[m[32mh_pois_priors <- c([m
+[32m+[m[32m### population level[m
+[32m+[m[32m##mean ASD[m
+[32m+[m[32mprior(normal(0,1),class = b, coef = ASD0),[m
+[32m+[m[32mprior(normal(0,1),class = b, coef = ASD1),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Visit"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Visit"),[m
+[32m+[m[32m##### participant level[m
+[32m+[m[32m## mean[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Intercept", group = Participant),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Visit", group = Participant),[m
+[32m+[m[32m###### pop level hu[m
+[32m+[m[32m##mean ASD[m
+[32m+[m[32mprior(uniform(0,1),class = b, coef = ASD0, dpar = "hu"),[m
+[32m+[m[32mprior(uniform(0,1),class = b, coef = ASD1, dpar = "hu"),[m
+[32m+[m[32m##mean Visit ( end of log scale)[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD0:Visit", dpar = "hu"),[m
+[32m+[m[32mprior(normal(0,.33),class = b, coef = "ASD1:Visit", dpar = "hu"),[m
+[32m+[m[32m### participant level[m
+[32m+[m[32m## mean[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "hu"),[m
+[32m+[m[32m##mean Visit[m
+[32m+[m[32mprior(normal(0,.33),class = sd, coef = "Visit", group = Participant,dpar = "hu")[m
+[32m+[m[32m)[m
+[32m+[m[32mreturn(h_pois_priors)[m
+[32m+[m[32m}[m
+[32m+[m[32m##############################################################[m
+[32m+[m[32my_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + (1 + Visit |gr(Participant, by=ASD)),[m
+[32m+[m[32mhu ~ 0 + ASD + ASD:Visit + ( 1 + Visit |gr(Participant, by=ASD)),[m
+[32m+[m[32mfamily = hurdle_poisson())[m
+[32m+[m[32m######### modelling IDS[m
+[32m+[m[32mlibrary(tidyverse)[m
+[32m+[m[32mlibrary(brms)[m
+[32m+[m[32m##############################################################[m
+[32m+[m[32my_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + (1 + Visit |gr(Participant, by=ASD)),[m
+[32m+[m[32mhu ~ 0 + ASD + ASD:Visit + ( 1 + Visit |gr(Participant, by=ASD)),[m
+[32m+[m[32mfamily = hurdle_poisson())[m
+[32m+[m[32my_p_count_priors <- h_pois_prior_function()[m
+[32m+[m[32mpause_count_model_test <- brm([m
+[32m+[m[32mdata = training_set,[m
+[32m+[m[32mformula = y_pausecount,[m
+[32m+[m[32mprior = y_p_count_priors,[m
+[32m+[m[32mfamily = hurdle_poisson(),[m
+[32m+[m[32msample_prior = T,[m
+[32m+[m[32mwarmup = 500,[m
+[32m+[m[32miter = 2500,[m
+[32m+[m[32mcores = 8,[m
+[32m+[m[32mchains = 4,[m
+[32m+[m[32minit = 0,[m
+[32m+[m[32m)[m
+[1mdiff --git a/step_0_NO_IND_DIFF/scripts/s0_p_count.R b/step_0_NO_IND_DIFF/scripts/s0_p_count.R[m
+[1mindex 49ed1e5..09ee37c 100644[m
+[1m--- a/step_0_NO_IND_DIFF/scripts/s0_p_count.R[m
+[1m+++ b/step_0_NO_IND_DIFF/scripts/s0_p_count.R[m
+[36m@@ -103,6 +103,7 @@[m [mpause_count_model_test <- brm([m
+   cores = 8,[m
+   chains = 4,[m
+   init = 0,[m
+[32m+[m[32m  control = list(adapt_delta = 0.9)[m
+ )[m
+ [m
+ #pp_check(pause_count_model_test,ndraws=100)[m
+[1mdiff --git a/step_2/scripts/s2_p_count.R b/step_2/scripts/s2_p_count.R[m
+[1mindex bd63825..1645135 100644[m
+[1m--- a/step_2/scripts/s2_p_count.R[m
+[1m+++ b/step_2/scripts/s2_p_count.R[m
+[36m@@ -103,7 +103,7 @@[m [mh_pois_prior_function <- function(){[m
+     prior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant,  dpar = "hu"),[m
+     prior(normal(0,.33),class = sd, coef = "Socialization", group = Participant,  dpar = "hu"),[m
+     ##mean Visit[m
+[31m-    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant,  dpar = "hu"),[m
+[32m+[m[32m    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant,  dpar = "hu")[m
+     [m
+   )[m
+   [m

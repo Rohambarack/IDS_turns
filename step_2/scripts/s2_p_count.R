@@ -103,7 +103,7 @@ h_pois_prior_function <- function(){
     prior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant,  dpar = "hu"),
     prior(normal(0,.33),class = sd, coef = "Socialization", group = Participant,  dpar = "hu"),
     ##mean Visit
-    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant,  dpar = "hu"),
+    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant,  dpar = "hu")
     
   )
   

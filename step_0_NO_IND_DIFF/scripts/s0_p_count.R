@@ -103,6 +103,7 @@ pause_count_model_test <- brm(
   cores = 8,
   chains = 4,
   init = 0,
+  control = list(adapt_delta = 0.9)
 )
 
 #pp_check(pause_count_model_test,ndraws=100)
