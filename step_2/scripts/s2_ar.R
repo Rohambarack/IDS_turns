@@ -137,4 +137,4 @@ pp_check(ar_model,ndraws=100)
 
 summary(ar_model)
 
-saveRDS(ar_model,"step_2_ar_2.rds")
+saveRDS(ar_model,"../models/step_2_ar_2.rds")

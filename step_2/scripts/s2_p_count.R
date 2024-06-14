@@ -127,11 +127,12 @@ pause_count_model_test <- brm(
   prior = y_p_count_priors,
   family = hurdle_poisson(),
   sample_prior = T,
-  warmup = 500,
-  iter = 2500,
+  warmup = 1000,
+  iter = 3000,
   cores = 8,
   chains = 4,
   init = 0,
+  control = list(adapt_delta = 0.9)
 )
 
 #pp_check(pause_count_model_test,ndraws=100)
