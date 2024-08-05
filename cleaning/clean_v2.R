@@ -31,7 +31,7 @@ df_c_1 <- df_full %>%
          ArticulationRate, 
          PauseCount,
          PauseDuration,
-         DurationSec,
+         Duration,
          Socialization, 
          MotorSkills )
 
@@ -154,3 +154,5 @@ df_mlu_merged <- df_mlu_merged[order(df_mlu_merged$ord), ]
 
 #save
 write_csv(df_mlu_merged,"../data/clean_data_mlu_correct_adj_dur.csv")
+
+
