@@ -21,39 +21,35 @@ log_prior_function <- function(){
     ##mean ASD
     prior(normal(1,1),class = b, coef = ASD0),
     prior(normal(1,1),class = b, coef = ASD1),
-    ###mean Individual skills
-    prior(normal(0,.33),class = b, coef = "ASD0:CHI_MLU"),
-    prior(normal(0,.33),class = b, coef = "ASD0:MotorSkills"),
-    prior(normal(0,.33),class = b, coef = "ASD0:Socialization"),
-    prior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU"),
-    prior(normal(0,.33),class = b, coef = "ASD1:MotorSkills"),
-    prior(normal(0,.33),class = b, coef = "ASD1:Socialization"),
     ##mean Visit
     prior(normal(0,.33),class = b, coef = "ASD0:Visit"),
     prior(normal(0,.33),class = b, coef = "ASD1:Visit"),
+    ##mean Visit:t_same
+    prior(normal(0,.1),class = b, coef = "ASD0:Visit:Ar_t_same"),
+    prior(normal(0,.1),class = b, coef = "ASD1:Visit:Ar_t_same"),
+    ##mean Visit:t_other
+    prior(normal(0,.1),class = b, coef = "ASD0:Visit:Ar_t_other"),
+    prior(normal(0,.1),class = b, coef = "ASD1:Visit:Ar_t_other"),
     ##### participant level
     ## mean
     prior(normal(0,.33),class = sd, coef = "Intercept", group = Participant),
-    ###mean Individual skills
-    prior(normal(0,.33),class = sd, coef = "CHI_MLU", group = Participant),
-    prior(normal(0,.33),class = sd, coef = "MotorSkills", group = Participant),
-    prior(normal(0,.33),class = sd, coef = "Socialization", group = Participant),
-    ##mean Visit
-    prior(normal(0,.33),class = sd, coef = "Visit", group = Participant),
+    ##mean Visit:t_same
+    prior(normal(0,.1),class = sd, coef = "Visit:Ar_t_same", group = Participant),
+    ##mean Visit:t_other
+    prior(normal(0,.1),class = sd, coef = "Visit:Ar_t_other", group = Participant),
     ###### pop level sigma (logscale)
     ##mean ASD
     prior(normal(-1,.33),class = b, coef = ASD0, dpar = "sigma"),
     prior(normal(-1,.33),class = b, coef = ASD1, dpar = "sigma"),
-    ###mean Individual skills
-    prior(normal(0,.33),class = b, coef = "ASD0:CHI_MLU", dpar = "sigma"),
-    prior(normal(0,.33),class = b, coef = "ASD0:MotorSkills", dpar = "sigma"),
-    prior(normal(0,.33),class = b, coef = "ASD0:Socialization", dpar = "sigma"),
-    prior(normal(0,.33),class = b, coef = "ASD1:CHI_MLU", dpar = "sigma"),
-    prior(normal(0,.33),class = b, coef = "ASD1:MotorSkills", dpar = "sigma"),
-    prior(normal(0,.33),class = b, coef = "ASD1:Socialization", dpar = "sigma"),
-    ##mean Visit ( end of log scale)
+    ##mean Visit (end of log scale)
     prior(normal(0,.33),class = b, coef = "ASD0:Visit", dpar = "sigma"),
     prior(normal(0,.33),class = b, coef = "ASD1:Visit", dpar = "sigma"),
+    ##mean Visit:t_same
+    prior(normal(0,.1),class = b, coef = "ASD0:Visit:Ar_t_same", dpar = "sigma"),
+    prior(normal(0,.1),class = b, coef = "ASD1:Visit:Ar_t_same", dpar = "sigma"),
+    ##mean Visit:t_other
+    prior(normal(0,.1),class = b, coef = "ASD0:Visit:Ar_t_other", dpar = "sigma"),
+    prior(normal(0,.1),class = b, coef = "ASD1:Visit:Ar_t_other", dpar = "sigma"),
     ### participant level 
     ## mean
     prior(normal(0,.33),class = sd, coef = "Intercept", group = Participant, dpar = "sigma")
@@ -87,7 +83,7 @@ ar_priors <- log_prior_function()
 ar_model <- brm(
   data = data,
   formula = y_ar,
-  #prior = ar_priors,
+  prior = ar_priors,
   family = lognormal(),
   sample_prior = T,
   warmup = 500,

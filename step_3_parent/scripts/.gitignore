@@ -1,3 +1,5 @@
 *
 !.gitignore
 !s3_ar.R
+!s3_iqr.R
+!s3_median.R
