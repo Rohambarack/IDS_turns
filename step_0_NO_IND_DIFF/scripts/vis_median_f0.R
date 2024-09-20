@@ -62,6 +62,8 @@ save_it <- function(plot,name){
 #read in model
 median_iqr <- readRDS("../models/step_0_median_f0.rds")
 
+summary(median_iqr)
+
 #make it into df
 med_vis <- as_draws_df(median_iqr)
 

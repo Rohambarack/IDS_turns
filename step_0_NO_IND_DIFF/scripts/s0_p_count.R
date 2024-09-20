@@ -82,8 +82,8 @@ h_pois_prior_function <- function(){
 }
 
 ##############################################################
-y_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + (1 + Visit |gr(Participant, by=ASD)),
-                  hu ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + ( 1 + Visit |gr(Participant, by=ASD)),
+y_pausecount<- bf(PauseCount ~ 0 + ASD + ASD:Visit + offset(log(Duration)) + (1 + Visit |gr(Participant, by=ASD)),
+                  hu ~ 0 + ASD + ASD:Visit + offset(log(Duration)) + ( 1 + Visit |gr(Participant, by=ASD)),
                   family = hurdle_poisson())
 ###
 

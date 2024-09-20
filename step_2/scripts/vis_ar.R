@@ -60,7 +60,7 @@ save_it <- function(plot,name){
 
 
 #read in model
-ar <- readRDS("../models/step_2_ar_3.rds")
+ar <- readRDS("../models/step_2_ar_2.rds")
 
 summary(ar)
 
@@ -69,7 +69,7 @@ med_vis <- as_draws_df(ar)
 
 
 
-######## check prior posterior updates for median fqr
+######## check prior posterior updates for ar
 pp_b_int <- pp_take_apart_4_vis(med_vis$prior_b_ASD0,med_vis$b_ASD0,med_vis$b_ASD1)
 pp_b_visit <- pp_take_apart_4_vis(med_vis$`prior_b_ASD0:Visit`,med_vis$`b_ASD0:Visit`,med_vis$`b_ASD1:Visit`)
 pp_b_soc <- pp_take_apart_4_vis(med_vis$`prior_b_ASD0:Socialization`,med_vis$`b_ASD0:Socialization`,med_vis$`b_ASD1:Socialization`)

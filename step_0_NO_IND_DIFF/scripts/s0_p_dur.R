@@ -90,9 +90,9 @@ h_gamma_prior_function <- function(){
   
 }
 ##################################################################
-y_paused_dur<- bf( PauseDuration ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + (1 + Visit  |gr(Participant, by=ASD)),
+y_paused_dur<- bf( PauseDuration ~ 0 + ASD + ASD:Visit + offset(log(Duration)) + (1 + Visit  |gr(Participant, by=ASD)),
                    shape ~ 0 + ASD + ( 1  |gr(Participant, by=ASD)),
-                   hu ~ 0 + ASD + ASD:Visit + offset(log(DurationSec)) + ( 1 + Visit |gr(Participant, by=ASD)),
+                   hu ~ 0 + ASD + ASD:Visit + offset(log(Duration)) + ( 1 + Visit |gr(Participant, by=ASD)),
                    family = hurdle_gamma())
 ###
 
