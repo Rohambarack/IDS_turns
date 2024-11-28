@@ -6,6 +6,11 @@ sd_round_zero <- function(x){
   x_mod <- ifelse(x<0,0.00001,x)
   return(x_mod)
 }
+#functions
+hurdle_round_below_one <- function(x){
+  x_mod <- ifelse(x>1,0.9999,x)
+  return(x_mod)
+}
 
 set.seed(123) 
 #child directed speech pauses
@@ -160,7 +165,9 @@ s0_sim_func_hpois <- function(
 
       #remove -s
       visit_lambda = sd_round_zero(visit_lambda),
-      visit_hurdle = sd_round_zero(visit_hurdle)
+      visit_hurdle = sd_round_zero(visit_hurdle),
+      #remove above 1 hurdle
+      visit_hurdle = hurdle_round_below_one(visit_hurdle)
     )
   
   #extend to k turns
